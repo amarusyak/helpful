@@ -1,24 +1,18 @@
-def nested_dict_passage_permutations(d, perm=None, parent_key=None):
+def dict_passage_permutations(data):
     """
-    Function that finds all possible passages through a given dict.
-    Max dictionary depth: 3.
-    :param d: REQUIRED - dictionary, to operate on.
-    :param perm: OPTIONAL - already formed list of possible passages.
-    :param parent_key: OPTIONAL - first item of some amount of new.
-        passages that will be added to the result.
-    :return: List of lists that corresponds to every passage of a 
-        given dictionary.
+    Function that finds all possible passages through a given dictionary.
+    :param data: dictionary, to operate on.
+    :return: List of lists that corresponds to every passage of a given dictionary.
     """
-    permutations = perm if perm else list()
-    for key, value in d.items():
-        if isinstance(value, str):
-            permutations.append([key, value])
+    result = list()
+    for key, value in data.items():
         if isinstance(value, list):
-            for item in value:
-                p = [parent_key, key, item] if parent_key else [key, item]
-                permutations.append(p)
-        if isinstance(value, dict):
-            nested_dict_passage_permutations(d=value,
-                                             perm=permutations,
-                                             parent_key=key)
-    return permutations
+            result.extend(map(lambda v: [key, v], value))
+        elif isinstance(value, dict):
+            result.extend(list(map(lambda v: [key] + v, dict_passage_permutations(value))))
+        elif isinstance(value, str):
+            result.append([key, value])
+        else:
+            err_msg = "Acceptable types are: 'str', 'list', 'dict'; '{t}' given - {v}"
+            raise TypeError(err_msg.format(t=type(value), v=value))
+    return result
