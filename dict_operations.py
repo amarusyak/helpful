@@ -18,7 +18,7 @@ def dict_passage_permutations(data):
     return result
 
 
-def compare_list_of_dicts(first, second):
+def compare_lists_of_dicts(first, second):
     """
     Simple comparator of two lists of dictionaries.
     :param first: a first list of dictionaries
