@@ -25,5 +25,7 @@ def compare_lists_of_dicts(first, second):
     :param second: a second list of dictionaries
     :return: True, if lists are equal; otherwise - False
     """
-    assert len(first) == len(second)
+    len_err_msg = ("len(first) != len(second)\n"
+                   "{f} != {s}".format(f=len(first), s=len(second)))
+    assert (len(first) == len(second)), len_err_msg
     return all([f_item in second for f_item in first])
