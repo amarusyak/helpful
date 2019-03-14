@@ -16,3 +16,14 @@ def dict_passage_permutations(data):
             err_msg = "Acceptable types are: 'str', 'list', 'dict'; '{t}' given - {v}"
             raise TypeError(err_msg.format(t=type(value), v=value))
     return result
+
+
+def compare_list_of_dicts(first, second):
+    """
+    Simple comparator of two lists of dictionaries.
+    :param first: a first list of dictionaries
+    :param second: a second list of dictionaries
+    :return: True, if lists are equal; otherwise - False
+    """
+    assert len(first) == len(second)
+    return all([f_item in second for f_item in first])
